@@ -1,0 +1,13 @@
+.gitignore
+README.md
+running.py
+setup.py
+functions/__init__.py
+functions/read_write_azure.py
+parameters/__init__.py
+parameters/credentials.py
+running.egg-info/PKG-INFO
+running.egg-info/SOURCES.txt
+running.egg-info/dependency_links.txt
+running.egg-info/not-zip-safe
+running.egg-info/top_level.txt

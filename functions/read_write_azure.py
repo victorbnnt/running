@@ -3,11 +3,15 @@ import pandas as pd
 import os
 from azure.storage.blob import ContainerClient
 from io import StringIO
+from parameters.credentials import *
+
+
+AZURE_STORAGE_CONNECTION_STRING = f"DefaultEndpointsProtocol=https;AccountName={STORAGEACCOUNTNAME};AccountKey={STORAGEACCOUNTKEY};EndpointSuffix=core.windows.net"
 
 
 def read_data_from_azure(file_csv):
-    connectionString = os.getenv('AZURE_STORAGE_CONNECTION_STRING')
-    containerName = "rawdata"
+    connectionString = AZURE_STORAGE_CONNECTION_STRING
+    containerName = CONTAINERNAME
     blobName = file_csv
 
     container_client = ContainerClient.from_connection_string(
@@ -18,7 +22,7 @@ def read_data_from_azure(file_csv):
     # Load blob as StorageStreamDownloader object
     downloaded_blob = container_client.download_blob(blobName)
 
-    return pd.read_csv(StringIO(downloaded_blob.content_as_text()))
+    return pd.read_csv(StringIO(downloaded_blob.content_as_text()), sep=",")
 
 
 def update_current_value(file_name_csv, df):
